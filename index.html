@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROVARA • Peak-time grooves from Amsterdam</title>
+  <meta name="description" content="Rovara (Roberto van Raamsdonk) — Dutch Tech House &amp; Techno producer from Amsterdam. Cinematic peak-time grooves and weekly radio on HouseBeats FM.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+
+    :root {
+      --purple: #c084fc;
+      --cyan: #67e8f9;
+      --pink: #f472b6;
+      --gold: #facc15;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .display-font {
+      font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+    }
+
+    .logo-font {
+      font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-title {
+      font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.07em;
+      line-height: 0.84;
+    }
+
+    .section-heading {
+      font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+      letter-spacing: -0.055em;
+    }
+
+    .club-bg {
+      background-color: #0a0a0a;
+    }
+
+    /* === Premium Glassmorphism === */
+    .glass {
+      background: rgba(15, 15, 15, 0.72);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+
+    .glass-strong {
+      background: rgba(12, 12, 12, 0.82);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+    }
+
+    /* === Cinematic Background Grid (Page-wide) === */
+    .cinematic-grid {
+      background-image: 
+        linear-gradient(rgba(192, 132, 252, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(103, 232, 249, 0.025) 1px, transparent 1px);
+      background-size: 72px 72px;
+      animation: grid-drift 42s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes grid-drift {
+      0% { background-position: 0 0; }
+      100% { background-position: 72px 72px; }
+    }
+
+    /* === Slow Elegant Scanning Line === */
+    .scan-line {
+      position: fixed;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(192, 132, 252, 0.18) 20%,
+        rgba(103, 232, 249, 0.25) 50%,
+        rgba(192, 132, 252, 0.18) 80%,
+        transparent
+      );
+      box-shadow: 0 0 12px rgba(103, 232, 249, 0.3);
+      animation: scan 14s linear infinite;
+      z-index: 40;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    @keyframes scan {
+      0% { top: -10%; }
+      100% { top: 110%; }
+    }
+
+    /* === Hero Background Effects === */
+    .neon-orb {
+      filter: blur(90px);
+      opacity: 0.65;
+      animation: orb-pulse 18s ease-in-out infinite;
+      will-change: transform, opacity;
+    }
+
+    @keyframes orb-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.55; }
+      50% { transform: scale(1.18); opacity: 0.78; }
+    }
+
+    /* Pulsing glow behind hero title */
+    .title-glow {
+      animation: title-glow-pulse 6s ease-in-out infinite;
+    }
+
+    @keyframes title-glow-pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 0.95; }
+    }
+
+    /* === Premium Buttons === */
+    .neon-btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .neon-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 45%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.35),
+        transparent
+      );
+      transition: 0.65s;
+    }
+
+    .neon-btn:hover::before {
+      left: 250%;
+    }
+
+    .neon-btn-primary {
+      background: linear-gradient(135deg, #c084fc, #a855f7);
+      box-shadow: 0 0 25px rgba(192, 132, 252, 0.45),
+                  0 10px 15px -3px rgb(0 0 0 / 0.3);
+    }
+
+    .neon-btn-primary:hover {
+      box-shadow: 0 0 45px rgba(192, 132, 252, 0.7),
+                  0 20px 25px -5px rgb(0 0 0 / 0.3);
+      transform: translateY(-2px) scale(1.01);
+    }
+
+    .neon-btn-secondary {
+      border: 1.5px solid #67e8f9;
+      color: #67e8f9;
+      box-shadow: 0 0 15px rgba(103, 232, 249, 0.15);
+    }
+
+    .neon-btn-secondary:hover {
+      background: rgba(103, 232, 249, 0.08);
+      box-shadow: 0 0 35px rgba(103, 232, 249, 0.45);
+      transform: translateY(-2px) scale(1.01);
+    }
+
+    /* === Glassmorphism Platform Cards === */
+    .platform-card {
+      transition: all 0.4s cubic-bezier(0.23, 1.0, 0.32, 1);
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(18, 18, 18, 0.65);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+
+    .platform-card:hover {
+      border-color: rgba(192, 132, 252, 0.4);
+      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5),
+                  0 0 0 1px rgba(192, 132, 252, 0.15);
+      transform: translateY(-6px);
+    }
+
+    .platform-card:hover .neon-border {
+      opacity: 1;
+    }
+
+    .neon-border {
+      position: absolute;
+      inset: 0;
+      border-radius: 1.5rem;
+      padding: 1px;
+      background: linear-gradient(135deg, #c084fc, #67e8f9, #f472b6);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    /* === Animated Waveform (Music Section) === */
+    .waveform-container {
+      height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 3.5px;
+      padding: 0 1px;
+    }
+
+    .waveform-bar {
+      width: 2.5px;
+      background: linear-gradient(to top, #c084fc, #67e8f9);
+      border-radius: 999px;
+      animation: waveform-elegant 2.2s ease-in-out infinite;
+      box-shadow: 0 0 6px rgba(192, 132, 252, 0.5);
+    }
+
+    .waveform-bar:nth-child(2) { animation-delay: 180ms; }
+    .waveform-bar:nth-child(3) { animation-delay: 420ms; }
+    .waveform-bar:nth-child(4) { animation-delay: 90ms; }
+    .waveform-bar:nth-child(5) { animation-delay: 310ms; }
+    .waveform-bar:nth-child(6) { animation-delay: 140ms; }
+    .waveform-bar:nth-child(7) { animation-delay: 260ms; }
+    .waveform-bar:nth-child(8) { animation-delay: 50ms; }
+    .waveform-bar:nth-child(9) { animation-delay: 380ms; }
+
+    @keyframes waveform-elegant {
+      0%, 100% { height: 8px; opacity: 0.35; }
+      50% { height: 38px; opacity: 0.95; }
+    }
+
+    /* === Premium Social Links === */
+    .social-icon {
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .social-icon:hover {
+      transform: translateY(-4px) scale(1.05);
+      filter: brightness(1.15) saturate(1.2);
+    }
+
+    /* === Scroll Animations === */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.75s cubic-bezier(0.23, 1.0, 0.32, 1);
+    }
+    
+    .fade-in-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section {
+      scroll-margin-top: 92px;
+    }
+
+    /* === Floating Mobile Button === */
+    .floating-listen {
+      animation: float-gentle 3.5s ease-in-out infinite;
+      box-shadow: 0 0 30px rgba(192, 132, 252, 0.55),
+                  0 15px 25px -8px rgb(0 0 0 / 0.5);
+    }
+
+    @keyframes float-gentle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    /* === Refined Typography === */
+    .premium-text {
+      font-feature-settings: "tnum", "ss01";
+    }
+  </style>
+</head>
+<body class="club-bg text-white overflow-x-hidden">
+  
+  <!-- SUBTLE PAGE-WIDE SCANNING LINE -->
+  <div class="scan-line"></div>
+
+  <!-- STICKY GLASSMORPHISM NAVBAR -->
+  <nav class="sticky top-0 z-50 glass border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-x-3 group">
+          <div class="relative w-9 h-9">
+            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#c084fc] via-[#a855f7] to-[#67e8f9] opacity-90 group-hover:opacity-100 transition-opacity"></div>
+            <div class="relative w-9 h-9 rounded-2xl flex items-center justify-center">
+              <span class="text-[#0a0a0a] font-black text-[29px] tracking-[-2.5px] logo-font">R</span>
+            </div>
+          </div>
+          <span class="logo-font text-[28px] font-bold tracking-[-1.75px]">ROVARA</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center gap-x-10 text-sm font-medium tracking-[0.5px]">
+          <a href="#about" class="nav-link text-zinc-300 hover:text-white transition-colors">About</a>
+          <a href="#music" class="nav-link text-zinc-300 hover:text-white transition-colors">Music</a>
+          <a href="#connect" class="nav-link text-zinc-300 hover:text-white transition-colors">Connect</a>
+        </div>
+
+        <!-- Desktop CTA -->
+        <div class="hidden md:block">
+          <a href="https://open.spotify.com/artist/6BOs4oeynvxJJHCwqS6WDi" 
+             target="_blank" rel="noopener noreferrer"
+             class="neon-btn neon-btn-primary inline-flex items-center gap-x-2.5 px-8 py-2.5 rounded-2xl text-sm font-semibold tracking-[0.5px] text-[#0a0a0a]">
+            LISTEN NOW
+          </a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button id="mobile-menu-btn"
+                class="md:hidden w-11 h-11 flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
+                aria-label="Toggle menu">
+          <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-white/10 glass">
+      <div class="px-8 py-8 flex flex-col gap-y-6 text-lg font-medium">
+        <a href="#about" class="mobile-link text-zinc-300 hover:text-white py-1">About</a>
+        <a href="#music" class="mobile-link text-zinc-300 hover:text-white py-1">Music</a>
+        <a href="#connect" class="mobile-link text-zinc-300 hover:text-white py-1">Connect</a>
+        
+        <div class="pt-4 border-t border-white/10">
+          <a href="https://open.spotify.com/artist/6BOs4oeynvxJJHCwqS6WDi" 
+             target="_blank" rel="noopener noreferrer"
+             class="flex items-center justify-center w-full py-3.5 rounded-2xl bg-white text-[#0a0a0a] font-semibold tracking-wider active:scale-[0.985] transition">
+            LISTEN ON SPOTIFY
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION - CINEMATIC -->
+  <header id="hero" class="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
+    
+    <!-- Base Background -->
+    <div class="absolute inset-0 bg-[#0a0a0a]"></div>
+    
+    <!-- Page Grid Overlay -->
+    <div class="absolute inset-0 cinematic-grid opacity-60"></div>
+    
+    <!-- Hero Canvas for Particles -->
+    <canvas id="hero-canvas" class="absolute inset-0 z-10"></canvas>
+    
+    <!-- Slow Moving Neon Orbs -->
+    <div class="absolute top-[12%] -left-[10%] w-[580px] h-[580px] rounded-full bg-[#c084fc] neon-orb z-10" style="animation-delay: -3s;"></div>
+    <div class="absolute bottom-[-18%] right-[-8%] w-[680px] h-[680px] rounded-full bg-[#67e8f9] neon-orb z-10" style="animation-delay: -9s;"></div>
+    <div class="absolute top-[32%] right-[18%] w-[240px] h-[240px] rounded-full bg-[#f472b6] neon-orb z-10" style="animation-delay: -14s; opacity: 0.5;"></div>
+    
+    <!-- Subtle Radial Vignette for Depth -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_40%,rgba(10,10,10,0.65)_85%)] z-20"></div>
+    
+    <!-- Hero Content -->
+    <div class="relative z-30 max-w-5xl mx-auto px-6 text-center pt-8 pb-16">
+      
+      <!-- Location Badge -->
+      <div class="inline-flex items-center gap-x-2.5 px-5 py-1.5 rounded-full glass border border-white/10 mb-10">
+        <div class="flex items-center gap-x-1.5">
+          <div class="w-1.5 h-1.5 rounded-full bg-[#facc15] animate-pulse"></div>
+          <span class="uppercase tracking-[3px] text-xs font-medium text-zinc-400">Amsterdam, Netherlands</span>
+        </div>
+      </div>
+
+      <!-- Artist Name with Pulsing Glow -->
+      <div class="relative inline-block mb-3">
+        <div class="absolute inset-0 blur-3xl bg-gradient-to-r from-[#c084fc] via-[#67e8f9] to-[#f472b6] opacity-60 title-glow rounded-[80px] scale-[1.15]"></div>
+        <h1 class="hero-title relative text-[86px] md:text-[132px] lg:text-[152px] tracking-[-8.5px] leading-none text-white">
+          ROVARA
+        </h1>
+      </div>
+      
+      <!-- Tagline -->
+      <p class="text-2xl md:text-[34px] font-medium tracking-[-0.7px] text-[#67e8f9] mb-9">
+        Peak-time grooves from Amsterdam
+      </p>
+
+      <!-- Bio Snippet -->
+      <p class="max-w-[560px] mx-auto text-[17px] md:text-[18px] leading-relaxed text-zinc-400 mb-11 tracking-[-0.1px]">
+        Fast-rising Tech House force delivering hypnotic, club-focused grooves that move dancefloors worldwide.
+      </p>
+
+      <!-- Primary CTAs -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="https://open.spotify.com/artist/6BOs4oeynvxJJHCwqS6WDi" 
+           target="_blank" rel="noopener noreferrer"
+           class="neon-btn neon-btn-primary group flex items-center justify-center gap-x-3 w-full sm:w-auto px-12 py-[17px] rounded-3xl text-base font-semibold tracking-[0.4px] text-[#0a0a0a]">
+          <span>STREAM ON SPOTIFY</span>
+        </a>
+        
+        <a href="https://x.com/Rovaramusic" 
+           target="_blank" rel="noopener noreferrer"
+           class="neon-btn neon-btn-secondary group flex items-center justify-center gap-x-3 w-full sm:w-auto px-10 py-[17px] rounded-3xl text-base font-semibold tracking-[0.4px]">
+          FOLLOW ON X
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-y-1.5 z-30">
+      <span class="text-[10px] tracking-[3.5px] text-white/40 font-medium">SCROLL TO EXPLORE</span>
+      <div class="w-px h-8 bg-gradient-to-b from-white/30 to-transparent"></div>
+    </div>
+  </header>
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="section max-w-4xl mx-auto px-8 pt-20 pb-20">
+    <div class="text-center">
+      
+      <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full glass border border-white/10 mb-8">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-[#facc15]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314-11.314z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span class="uppercase tracking-[2.8px] text-xs font-medium text-zinc-400">From Amsterdam</span>
+      </div>
+
+      <h2 class="section-heading text-6xl md:text-[70px] font-semibold tracking-[-3.5px] mb-9">Roberto van Raamsdonk</h2>
+      
+      <div class="max-w-[720px] mx-auto">
+        <p class="text-[21px] leading-[1.38] text-zinc-200 font-light tracking-[-0.15px]">
+          Hailing from Amsterdam, Rovara (Roberto van Raamsdonk) is a fast-rising force in the global Tech House scene. 
+          Known for his infectious, club-focused tracks and rolling peak-time energy, he delivers hypnotic grooves that move dancefloors worldwide.
+        </p>
+        
+        <p class="mt-6 text-[19px] leading-relaxed text-zinc-400">
+          Catch his weekly radio show <span class="text-[#67e8f9]">every Friday 7–8 PM</span> on HouseBeats FM.
+        </p>
+      </div>
+
+      <!-- Elegant Animated Divider -->
+      <div class="mt-14 flex justify-center">
+        <div class="h-px w-24 bg-gradient-to-r from-transparent via-[#c084fc]/60 to-transparent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MUSIC / LISTEN SECTION -->
+  <section id="music" class="section bg-[#050505] border-t border-white/10 py-20 relative">
+    
+    <!-- Very subtle grid inside music section -->
+    <div class="absolute inset-0 cinematic-grid opacity-40"></div>
+    
+    <div class="max-w-6xl mx-auto px-8 relative z-10">
+      
+      <div class="text-center mb-11">
+        <span class="uppercase tracking-[4.2px] text-xs font-semibold text-[#c084fc]">SOUNDSYSTEM APPROVED</span>
+        <h2 class="section-heading text-6xl md:text-[64px] font-semibold tracking-[-3px] mt-2">Where to listen</h2>
+        
+        <!-- Animated Waveform -->
+        <div class="flex justify-center mt-6">
+          <div class="waveform-container">
+            <div class="waveform-bar h-[9px]"></div>
+            <div class="waveform-bar h-[9px]"></div>
+            <div class="waveform-bar h-[9px]"></div>
+            <div class="waveform-bar h-[9px]"></div>
+            <div class="waveform-bar h-[9px]"></div>
+            <div class="waveform-bar h-[9px]"></div>
+            <div class="waveform-bar h-[9px]"></div>
+            <div class="waveform-bar h-[9px]"></div>
+            <div class="waveform-bar h-[9px]"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 Premium Glassmorphism Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        
+        <!-- Spotify -->
+        <a href="https://open.spotify.com/artist/6BOs4oeynvxJJHCwqS6WDi" target="_blank" rel="noopener noreferrer"
+           class="platform-card group relative rounded-3xl p-7 flex flex-col overflow-hidden">
+          <div class="neon-border"></div>
+          <div class="mb-auto">
+            <div class="w-11 h-11 mb-9 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-11 h-11 text-[#1DB954]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.18-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+              </svg>
+            </div>
+            <div class="font-semibold text-[22px] tracking-[-0.5px]">Spotify</div>
+            <div class="text-sm text-zinc-400 mt-1">Full catalog • Playlists</div>
+          </div>
+          <div class="mt-10 text-sm font-semibold text-[#c084fc] flex items-center gap-x-1.5 group-hover:gap-x-2 transition-all">
+            LISTEN <span class="text-lg leading-none">→</span>
+          </div>
+        </a>
+
+        <!-- Apple Music -->
+        <a href="https://music.apple.com/us/artist/rovara/1074887297" target="_blank" rel="noopener noreferrer"
+           class="platform-card group relative rounded-3xl p-7 flex flex-col overflow-hidden">
+          <div class="neon-border"></div>
+          <div class="mb-auto">
+            <div class="w-11 h-11 mb-9 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-11 h-11 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2.01.77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+            </div>
+            <div class="font-semibold text-[22px] tracking-[-0.5px]">Apple Music</div>
+            <div class="text-sm text-zinc-400 mt-1">Lossless streaming</div>
+          </div>
+          <div class="mt-10 text-sm font-semibold text-[#c084fc] flex items-center gap-x-1.5 group-hover:gap-x-2 transition-all">
+            LISTEN <span class="text-lg leading-none">→</span>
+          </div>
+        </a>
+
+        <!-- SoundCloud -->
+        <a href="https://soundcloud.com/rovaramusic" target="_blank" rel="noopener noreferrer"
+           class="platform-card group relative rounded-3xl p-7 flex flex-col overflow-hidden">
+          <div class="neon-border"></div>
+          <div class="mb-auto">
+            <div class="w-11 h-11 mb-9 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-11 h-11 text-[#FF7700]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M7 17.5c-.3 0-.5-.2-.5-.5V6c0-.3.2-.5.5-.5s.5.2.5.5v11c0 .3-.2.5-.5.5zm3 1c-.3 0-.5-.2-.5-.5V5c0-.3.2-.5.5-.5s.5.2.5.5v13c0 .3-.2.5-.5.5zm3-2c-.3 0-.5-.2-.5-.5V7c0-.3.2-.5.5-.5s.5.2.5.5v9c0 .3-.2.5-.5.5zm3-3c-.3 0-.5-.2-.5-.5V9.5c0-.3.2-.5.5-.5s.5.2.5.5v3.5c0 .3-.2.5-.5.5zm3-1c-.3 0-.5-.2-.5-.5v-2c0-.3.2-.5.5-.5s.5.2.5.5v2c0 .3-.2.5-.5.5z"/>
+              </svg>
+            </div>
+            <div class="font-semibold text-[22px] tracking-[-0.5px]">SoundCloud</div>
+            <div class="text-sm text-zinc-400 mt-1">Sets • Free downloads</div>
+          </div>
+          <div class="mt-10 text-sm font-semibold text-[#c084fc] flex items-center gap-x-1.5 group-hover:gap-x-2 transition-all">
+            LISTEN <span class="text-lg leading-none">→</span>
+          </div>
+        </a>
+
+        <!-- Beatport -->
+        <a href="https://www.beatport.com/artist/rovara/540082" target="_blank" rel="noopener noreferrer"
+           class="platform-card group relative rounded-3xl p-7 flex flex-col overflow-hidden">
+          <div class="neon-border"></div>
+          <div class="mb-auto">
+            <div class="w-11 h-11 mb-9 flex items-center justify-center">
+              <span class="font-black text-[44px] tracking-[-4.5px] text-white">BP</span>
+            </div>
+            <div class="font-semibold text-[22px] tracking-[-0.5px]">Beatport</div>
+            <div class="text-sm text-zinc-400 mt-1">Charts • DJ downloads</div>
+          </div>
+          <div class="mt-10 text-sm font-semibold text-[#c084fc] flex items-center gap-x-1.5 group-hover:gap-x-2 transition-all">
+            BROWSE <span class="text-lg leading-none">→</span>
+          </div>
+        </a>
+
+        <!-- Weekly Radio Show -->
+        <a href="https://housebeats.fm" target="_blank" rel="noopener noreferrer"
+           class="platform-card group relative rounded-3xl p-7 flex flex-col overflow-hidden border border-[#67e8f9]/25 hover:border-[#67e8f9]/50">
+          <div class="neon-border" style="background: linear-gradient(135deg, #67e8f9, #c084fc);"></div>
+          <div class="mb-auto">
+            <div class="w-11 h-11 mb-9 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-[#67e8f9]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.9">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0-4H3m15 0h3m-3-7a7 7 0 01-7 7m7-7V3m-7 4a3 3 0 01-3 3m3-3a3 3 0 013 3" />
+              </svg>
+            </div>
+            <div class="font-semibold text-[22px] tracking-[-0.5px]">Weekly Radio Show</div>
+            <div class="text-sm text-[#67e8f9] mt-1">PERSPECTIVE • Fridays 7–8 PM</div>
+            <div class="text-xs text-zinc-500 mt-0.5">HouseBeats FM</div>
+          </div>
+          <div class="mt-10 text-sm font-semibold text-[#67e8f9] flex items-center gap-x-1.5 group-hover:gap-x-2 transition-all">
+            LISTEN LIVE <span class="text-lg leading-none">→</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONNECT SECTION -->
+  <section id="connect" class="section max-w-6xl mx-auto px-8 pt-20 pb-24">
+    
+    <div class="text-center mb-12">
+      <span class="uppercase tracking-[3.8px] text-xs font-semibold text-[#c084fc]">DIRECT FROM THE STUDIO</span>
+      <h2 class="section-heading text-6xl md:text-[64px] font-semibold tracking-[-3px] mt-2">Stay in the loop</h2>
+      <p class="mt-3 text-[17.5px] text-zinc-400">New releases, radio episodes &amp; exclusive updates.</p>
+    </div>
+
+    <!-- Large Animated Social Icons (X + SoundCloud only) -->
+    <div class="flex flex-wrap justify-center gap-4 mb-11">
+      
+      <!-- X -->
+      <a href="https://x.com/Rovaramusic" target="_blank" rel="noopener noreferrer"
+         class="group flex items-center gap-x-4 px-9 h-20 rounded-3xl glass border border-white/10 hover:border-[#c084fc] transition-all">
+        <div class="w-10 h-10 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-white group-hover:text-[#c084fc] transition-colors social-icon" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M18.244 2.25l-7.451 8.52L4.5 2.25H1.5l7.82 9.01L1.5 21.75h3l7.2-8.24 5.55 6.24h3l-7.82-8.99L21.75 2.25h-3.506z"/>
+          </svg>
+        </div>
+        <div class="text-left">
+          <div class="font-semibold text-xl tracking-tight">X</div>
+          <div class="text-sm text-zinc-500">@Rovaramusic</div>
+        </div>
+      </a>
+      
+      <!-- SoundCloud -->
+      <a href="https://soundcloud.com/rovaramusic" target="_blank" rel="noopener noreferrer"
+         class="group flex items-center gap-x-4 px-9 h-20 rounded-3xl glass border border-white/10 hover:border-[#f472b6] transition-all">
+        <div class="w-10 h-10 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-[#FF7700] group-hover:scale-110 transition-transform social-icon" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M7 17.5c-.3 0-.5-.2-.5-.5V6c0-.3.2-.5.5-.5s.5.2.5.5v11c0 .3-.2.5-.5.5zm3 1c-.3 0-.5-.2-.5-.5V5c0-.3.2-.5.5-.5s.5.2.5.5v13c0 .3-.2.5-.5.5zm3-2c-.3 0-.5-.2-.5-.5V7c0-.3.2-.5.5-.5s.5.2.5.5v9c0 .3-.2.5-.5.5zm3-3c-.3 0-.5-.2-.5-.5V9.5c0-.3.2-.5.5-.5s.5.2.5.5v3.5c0 .3-.2.5-.5.5zm3-1c-.3 0-.5-.2-.5-.5v-2c0-.3.2-.5.5-.5s.5.2.5.5v2c0 .3-.2.5-.5.5z"/>
+          </svg>
+        </div>
+        <div class="text-left">
+          <div class="font-semibold text-xl tracking-tight">SoundCloud</div>
+          <div class="text-sm text-zinc-500">Sets &amp; free tracks</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- DistroKid + Blog Cards -->
+    <div class="grid md:grid-cols-2 gap-5 max-w-[980px] mx-auto">
+      
+      <!-- DistroKid -->
+      <a href="https://distrokid.com/vip/seven/2058328" target="_blank" rel="noopener noreferrer"
+         class="group glass-strong rounded-3xl p-8 flex flex-col md:flex-row gap-6 items-start md:items-center border border-[#c084fc]/30 hover:border-[#c084fc]/70 transition-all">
+        <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-[#c084fc] via-[#f472b6] to-[#facc15] flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-[#0a0a0a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.75">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+          </svg>
+        </div>
+        <div class="flex-1">
+          <div class="uppercase tracking-[2.5px] text-xs font-bold text-[#facc15]">FOR PRODUCERS</div>
+          <div class="font-semibold text-3xl tracking-[-1.1px] mt-1">Get 7% off DistroKid</div>
+          <p class="text-zinc-400 mt-2 text-[15px] pr-2">Exclusive discount link for independent artists. Distribute your music everywhere.</p>
+          <div class="mt-6 inline-flex items-center gap-x-2 text-sm font-semibold text-[#c084fc] group-hover:gap-x-3 transition-all">
+            CLAIM DISCOUNT <span class="text-xl leading-none">→</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Blog -->
+      <a href="https://www.perspectiveonlife.nl/" target="_blank" rel="noopener noreferrer"
+         class="group glass-strong rounded-3xl p-8 flex flex-col md:flex-row gap-6 items-start md:items-center border border-white/10 hover:border-[#67e8f9]/60 transition-all">
+        <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-[#67e8f9] to-[#c084fc] flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-[#0a0a0a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+          </svg>
+        </div>
+        <div class="flex-1">
+          <div class="uppercase tracking-[2.5px] text-xs font-bold text-[#67e8f9]">INSIDE THE MIND</div>
+          <div class="font-semibold text-3xl tracking-[-1.1px] mt-1">Music Insights Blog</div>
+          <p class="text-zinc-400 mt-2 text-[15px] pr-2">Track breakdowns, studio stories, and long-form thoughts on music and life.</p>
+          <div class="mt-6 inline-flex items-center gap-x-2 text-sm font-semibold text-[#67e8f9] group-hover:gap-x-3 transition-all">
+            READ THE BLOG <span class="text-xl leading-none">→</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/10 bg-[#050505]">
+    <div class="max-w-7xl mx-auto px-8 py-14">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-y-8">
+        
+        <div>
+          <div class="flex items-center gap-x-3 mb-1.5">
+            <div class="w-6 h-6 rounded-xl bg-gradient-to-br from-[#c084fc] via-[#67e8f9] to-[#facc15] flex items-center justify-center">
+              <span class="text-[#0a0a0a] font-black text-lg leading-none mt-px logo-font">R</span>
+            </div>
+            <span class="font-semibold tracking-[-0.5px] text-xl">ROVARA</span>
+          </div>
+          <p class="text-sm text-zinc-500">Peak-time grooves from Amsterdam</p>
+        </div>
+
+        <div class="flex flex-wrap gap-x-9 gap-y-2 text-sm text-zinc-400">
+          <a href="#about" class="hover:text-white transition-colors">About</a>
+          <a href="#music" class="hover:text-white transition-colors">Music</a>
+          <a href="#connect" class="hover:text-white transition-colors">Connect</a>
+          <a href="https://open.spotify.com/artist/6BOs4oeynvxJJHCwqS6WDi" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Spotify</a>
+          <a href="https://housebeats.fm" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">HouseBeats FM</a>
+        </div>
+
+        <div class="text-sm text-right text-zinc-500">
+          © 2026 Roberto van Raamsdonk<br>
+          <span class="text-xs tracking-wide">Crafted in Amsterdam</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING MOBILE LISTEN BUTTON -->
+  <a href="https://open.spotify.com/artist/6BOs4oeynvxJJHCwqS6WDi" 
+     target="_blank" rel="noopener noreferrer"
+     class="md:hidden fixed bottom-6 right-6 z-[60] flex items-center gap-x-3 px-7 h-14 rounded-full bg-gradient-to-r from-[#c084fc] via-[#a855f7] to-[#67e8f9] text-[#0a0a0a] font-extrabold tracking-wider text-sm shadow-2xl floating-listen active:scale-[0.965]">
+    LISTEN NOW
+  </a>
+
+  <script>
+    // Tailwind Configuration
+    function initTailwind() {
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'display': ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif']
+            }
+          }
+        }
+      };
+    }
+
+    // Mobile Menu
+    function initMobileMenu() {
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+
+      if (!menuBtn || !mobileMenu) return;
+
+      menuBtn.addEventListener('click', () => {
+        const isOpen = !mobileMenu.classList.contains('hidden');
+        
+        if (isOpen) {
+          mobileMenu.classList.add('hidden');
+          menuIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.25" d="M4 6h16M4 12h16M4 18h16" />`;
+        } else {
+          mobileMenu.classList.remove('hidden');
+          menuIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.75" d="M6 18L18 6M6 6l12 12" />`;
+        }
+      });
+
+      document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          menuIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.25" d="M4 6h16M4 12h16M4 18h16" />`;
+        });
+      });
+    }
+
+    // === ADVANCED HERO CANVAS: Floating Neon Particles ===
+    function initHeroCanvas() {
+      const canvas = document.getElementById('hero-canvas');
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d', { alpha: true });
+      let particles = [];
+      let width = 0;
+      let height = 0;
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = canvas.offsetWidth;
+        height = canvas.offsetHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.scale(dpr, dpr);
+      }
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+
+        reset() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * height;
+          this.vx = (Math.random() - 0.5) * 0.22;
+          this.vy = (Math.random() - 0.5) * 0.22;
+          this.size = Math.random() * 2.2 + 0.8;
+          this.opacity = Math.random() * 0.55 + 0.25;
+          // Cycle between purple, cyan, pink
+          const colors = ['#c084fc', '#67e8f9', '#f472b6'];
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+
+          // Gentle drift + wrap around edges
+          if (this.x < 0) this.x = width;
+          if (this.x > width) this.x = 0;
+          if (this.y < 0) this.y = height;
+          if (this.y > height) this.y = 0;
+
+          // Very subtle size breathing
+          this.opacity = 0.25 + Math.sin(Date.now() / 1800 + this.x) * 0.2;
+        }
+
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.globalAlpha = this.opacity;
+          ctx.fill();
+
+          // Soft outer glow
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size * 2.8, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.globalAlpha = this.opacity * 0.12;
+          ctx.fill();
+          ctx.globalAlpha = 1;
+        }
+      }
+
+      function initParticles() {
+        particles = [];
+        const count = Math.floor((width * height) / 11000); // ~65-85 particles
+        for (let i = 0; i < Math.min(count, 95); i++) {
+          particles.push(new Particle());
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.update();
+          p.draw();
+        }
+
+        // Very subtle connecting lines between nearby particles
+        ctx.strokeStyle = '#c084fc';
+        ctx.lineWidth = 0.6;
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 110) {
+              ctx.globalAlpha = (1 - dist / 110) * 0.08;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+        ctx.globalAlpha = 1;
+
+        requestAnimationFrame(animate);
+      }
+
+      // Initialize
+      window.addEventListener('resize', () => {
+        resize();
+        initParticles();
+      });
+
+      resize();
+      initParticles();
+      animate();
+
+      // Pause animation when tab is hidden (performance)
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          // Canvas will naturally slow down
+        }
+      });
+    }
+
+    // Scroll-triggered fade animations
+    function initScrollAnimations() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -40px 0px"
+      });
+
+      const elements = document.querySelectorAll('#about, #music, .platform-card, .glass-strong');
+      elements.forEach((el, index) => {
+        el.classList.add('fade-in-up');
+        el.style.transitionDelay = (index % 8) * 28 + 'ms';
+        observer.observe(el);
+      });
+    }
+
+    // Smooth scroll for navigation
+    function initSmoothScroll() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            const navHeight = 88;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.scrollY - navHeight;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    }
+
+    // Subtle hero orb mouse interaction
+    function initHeroOrbsInteraction() {
+      const hero = document.getElementById('hero');
+      const orbs = hero.querySelectorAll('.neon-orb');
+
+      if (!orbs.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        orbs.forEach((orb, i) => {
+          const intensity = (i + 1) * 7;
+          orb.style.transform = `translate(${x * intensity}px, ${y * intensity}px)`;
+        });
+      });
+
+      hero.addEventListener('mouseleave', () => {
+        orbs.forEach(orb => {
+          orb.style.transition = 'transform 1.8s cubic-bezier(0.23, 1.0, 0.32, 1)';
+          orb.style.transform = 'translate(0, 0)';
+          setTimeout(() => {
+            orb.style.transition = '';
+          }, 1600);
+        });
+      });
+    }
+
+    // Keyboard easter egg: press "R" for a dramatic particle burst
+    function initEasterEgg() {
+      document.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 'r') {
+          const canvas = document.getElementById('hero-canvas');
+          if (!canvas) return;
+
+          const ctx = canvas.getContext('2d');
+          const rect = canvas.getBoundingClientRect();
+
+          for (let i = 0; i < 28; i++) {
+            setTimeout(() => {
+              const x = rect.width / 2 + (Math.random() - 0.5) * 320;
+              const y = rect.height * 0.42 + (Math.random() - 0.5) * 80;
+
+              ctx.beginPath();
+              ctx.arc(x, y, 2.8, 0, Math.PI * 2);
+              ctx.fillStyle = ['#c084fc', '#67e8f9', '#f472b6'][i % 3];
+              ctx.globalAlpha = 0.9;
+              ctx.fill();
+              ctx.globalAlpha = 1;
+            }, i * 2);
+          }
+        }
+      });
+    }
+
+    // Main Initialization
+    function initialize() {
+      initTailwind();
+      initMobileMenu();
+      initHeroCanvas();
+      initScrollAnimations();
+      initSmoothScroll();
+      initHeroOrbsInteraction();
+      initEasterEgg();
+
+      console.log('%c[Rovara] Cinematic premium landing page initialized — high-end club experience ready.', 'color:#c084fc; font-size: 9px');
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initialize);
+    } else {
+      initialize();
+    }
+  </script>
+</body>
+</html>
